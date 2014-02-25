@@ -2334,7 +2334,7 @@ public class FitbitApiClientAgent extends FitbitAPIClientSupport implements Seri
      * @throws FitbitAPIException Fitbit API Exception
      * @see <a href="http://wiki.fitbit.com/display/API/API-Get-Friends-Leaderboard">Fitbit API: API-Get-Friends-Leaderboard</a>
      */
-    public List<FriendStats> getFriendsLeaderboard(LocalUserDetail localUser, TimePeriod timePeriod) throws FitbitAPIException {
+    public List<FriendStats> getFriendsLeaders(LocalUserDetail localUser, TimePeriod timePeriod) throws FitbitAPIException {
         setAccessToken(localUser);
         // GET /1/user/-/friends/leaders.json
         String url = APIUtil.contextualizeUrl(getApiBaseUrl(), getApiVersion(), "/user/-/friends/leaders/" + timePeriod.getShortForm(), APIFormat.JSON);
@@ -2347,6 +2347,19 @@ public class FitbitApiClientAgent extends FitbitAPIClientSupport implements Seri
         }
     }
 
+
+    public List<FriendStats> getFriendsLeaderboard(LocalUserDetail localUser) throws FitbitAPIException {
+        setAccessToken(localUser);
+        // GET /1/user/-/friends/leaders.json
+        String url = APIUtil.contextualizeUrl(getApiBaseUrl(), getApiVersion(), "/user/-/friends/leaderboard", APIFormat.JSON);
+        Response response = httpGet(url, true);
+        throwExceptionIfError(response);
+        try {
+            return FriendStats.jsonArrayToFriendStatsList(response.asJSONObject().getJSONArray("friends"));
+        } catch (JSONException e) {
+            throw new FitbitAPIException("Error parsing json response to list of FriendStats : ", e);
+        }
+    }
 
     /**
      * Get Rate Limiting Quota left for the Client

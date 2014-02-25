@@ -20,8 +20,12 @@ public class FriendStats {
 
     public FriendStats(JSONObject friendStatsJson) throws JSONException {
         this.user = new UserInfo(friendStatsJson);
-        this.summary = new StatisticInfo(friendStatsJson.getJSONObject("summary"));
-        this.average = new StatisticInfo(friendStatsJson.getJSONObject("average"));
+        if (friendStatsJson.has("summary")) {
+            this.summary = new StatisticInfo(friendStatsJson.getJSONObject("summary"));
+        }
+        if (friendStatsJson.has("average")) {
+            this.average = new StatisticInfo(friendStatsJson.getJSONObject("average"));
+        }
     }
 
     public static List<FriendStats> jsonArrayToFriendStatsList(JSONArray array) throws JSONException {
@@ -76,9 +80,15 @@ public class FriendStats {
 
         public StatisticInfo(JSONObject statisticInfoJson) throws JSONException {
             this.steps = statisticInfoJson.getInt("steps");
-            this.calories = statisticInfoJson.getInt("calories");
-            this.distance = statisticInfoJson.getDouble("distance");
-            this.activeScore = statisticInfoJson.getInt("activeScore");
+            if (statisticInfoJson.has("calories")) {
+                this.calories = statisticInfoJson.getInt("calories");
+            }
+            if (statisticInfoJson.has("distance")) {
+                this.distance = statisticInfoJson.getDouble("distance");
+            }
+            if (statisticInfoJson.has("activeScore")) {
+                this.activeScore = statisticInfoJson.getInt("activeScore");
+            }
         }
 
         public int getSteps() {
