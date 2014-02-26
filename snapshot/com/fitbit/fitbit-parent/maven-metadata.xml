@@ -4,11 +4,8 @@
   <artifactId>fitbit-parent</artifactId>
   <versioning>
     <versions>
-      <version>1.0.0-SNAPSHOT</version>
-      <version>1.0.2-SNAPSHOT</version>
-      <version>1.0.5-SNAPSHOT</version>
-      <version>1.0.9-SNAPSHOT</version>
+      <version>1.0.26-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20110813092053</lastUpdated>
+    <lastUpdated>20140225233144</lastUpdated>
   </versioning>
 </metadata>
